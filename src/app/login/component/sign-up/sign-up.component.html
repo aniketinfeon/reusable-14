@@ -1,13 +1,61 @@
-<form action="">
-    <div style="padding:100px;">
-        <div>
-            <label for="firstname">First Name</label> <br>
-            <input type="text">
-        </div>
-        <div>
-            <label for="lastname">Last name</label> <br>
-            <input type="text" name="" id="">
-        </div>
+<div class="row justify-content-center mt-5">
+    <div class="col-4 p-4" style="background-color:#e1e1e2 ;">
+        <h4 class="text-primary">SignUp</h4>
+        <form [formGroup]="signupForm" >
+            <div>
+                <div class="form-group">
+                    <label for="firstname">First Name</label><sup class="text-danger">*</sup> <br>
+                    <input type="text" class="form-control" id="firstname" formControlName="firstName">
+                    <span class="text-danger" *ngIf="signUpVal['firstName'].touched && signUpVal['firstName'].invalid">
+                        <span *ngIf="signUpVal['firstName'].hasError('required')">First name is required</span>
+                        <span *ngIf="signUpVal['firstName'].hasError('pattern')">Enter only character</span>
+                        <span *ngIf="signUpVal['firstName'].hasError('minLength')">Enter minimum 2 character</span>
+                      </span>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last name</label> <sup class="text-danger">*</sup>  <br>
+                    <input type="text" class="form-control" id="lastname" formControlName="lastName">
+                    <span class="text-danger" *ngIf="signUpVal['lastName'].touched && signUpVal['lastName'].invalid">
+                        <span *ngIf="signUpVal['lastName'].hasError('required')">Last name is required</span>
+                        <span *ngIf="signUpVal['lastName'].hasError('pattern')">Enter only character</span>
+                        <span *ngIf="signUpVal['lastName'].hasError('minLength')">Enter minimum 2 character</span>
+                      </span>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Email</label> <sup class="text-danger">*</sup>  <br>
+                    <input type="text" class="form-control" id="email" formControlName="emailId">
+                    <span class="text-danger" *ngIf="signUpVal['emailId'].touched && signUpVal['emailId'].invalid">
+                        <span *ngIf="signUpVal['emailId'].hasError('required')">Email is required</span>
+                        <span *ngIf="signUpVal['emailId'].hasError('pattern')">Enter valid Email.</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Mobile No</label> <sup class="text-danger">*</sup>  <br>
+                    <input type="text" class="form-control" id="mnumber" formControlName="mNumber">
+                    <span class="text-danger" *ngIf="signUpVal['mNumber'].touched && signUpVal['mNumber'].invalid">
+                        <span *ngIf="signUpVal['mNumber'].hasError('required')">Mobile Number is required</span>
+                        <span *ngIf="signUpVal['mNumber'].hasError('pattern')">Enter 10 digit Mobile Number.</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">New Password</label> <sup class="text-danger">*</sup>  <br>
+                    <input type="text" class="form-control" id="new-pwd" formControlName="newPwd">
+                    <span class="text-danger" *ngIf="signUpVal['newPwd'].touched && signUpVal['newPwd'].invalid">
+                        <span *ngIf="signUpVal['newPwd'].hasError('required')">Password is required</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Confirm Password</label> <sup class="text-danger">*</sup>  <br>
+                    <input type="text" class="form-control" id="confirm-pwd" formControlName="confirmPwd">
+                    <span class="text-danger" *ngIf="signUpVal['confirmPwd'].touched && signUpVal['confirmPwd'].invalid">
+                        <span *ngIf="signUpVal['confirmPwd'].hasError('required')">Password is required</span>
+                    </span>
+                    <span class="text-danger" *ngIf="signUpVal['confirmPwd'].hasError('confirmValidator')">New Password and Confirm Password must be match!</span>
+                </div>
+            </div>
+            <div class="pt-3 float-end">
+                <button type="submit" [disabled]="!signupForm.valid" (click)="postSignup(signupForm)" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
     </div>
-   
-</form>
+</div>

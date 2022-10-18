@@ -1,3 +1,5 @@
+import { SharedModule } from './shared/shared.module';
+import { PrimengModule } from './primeng/primeng.module';
 import { SidebarComponent } from './layout/component/sidebar/sidebar.component';
 import { MainComponent } from './layout/component/main/main.component';
 import { FooterComponent } from './layout/component/footer/footer.component';
@@ -10,12 +12,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/component/dashboard/dashboard.component';
 import { LayoutComponent } from './layout/component/layout/layout.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    LayoutComponent,
     LayoutComponent,
     HeaderComponent,
     FooterComponent,
@@ -26,6 +28,9 @@ import { LayoutComponent } from './layout/component/layout/layout.component';
     BrowserModule,
     AppRoutingModule,
     LoginModule,
+    PrimengModule,
+    SharedModule,
+    ReactiveFormsModule
  
   ],
   providers: [],
