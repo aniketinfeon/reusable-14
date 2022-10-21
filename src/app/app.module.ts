@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/component/dashboard/dashboard.component';
 import { LayoutComponent } from './layout/component/layout/layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginModule,
     PrimengModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
  
   ],
   providers: [],

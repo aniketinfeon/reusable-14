@@ -1,19 +1,17 @@
 {
-  "posts": [
+  "register":[
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "firstName":"",
+      "lastName":"",
+      "emailId":"",
+      "mNumber":"",
+      "newPwd":"",
+      "confirmPwd":""
     }
   ],
-  "comments": [
+  "education": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
