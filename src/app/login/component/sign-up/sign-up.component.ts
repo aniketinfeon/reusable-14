@@ -1,16 +1,19 @@
+import { LoginService } from './../../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl,FormBuilder, Validators } from '@angular/forms';
 import { confirmValidator } from '../confirm.validator';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
+
 export class SignUpComponent implements OnInit {
 
   signupForm: any;
-  constructor( private formBuilder: FormBuilder) { 
+  constructor( private formBuilder: FormBuilder,private http:HttpClient, private service:LoginService) { 
   }
  
   ngOnInit(): void {
@@ -30,7 +33,12 @@ export class SignUpComponent implements OnInit {
 
   postSignup(data:any){
     if(data.valid){
+      this.service.postRegister(data.value).subscribe((res:any) =>{
+        this.signupForm.reset();
+        alert('Data added successfully')
+      })
     console.log("signup = " ,data.value); 
+    
     }else{
       alert('Fill all the field')
     }
