@@ -1,4 +1,5 @@
 <div class="row justify-content-center mt-5">
+
     <div class="col-6 p-4 border">
         <h4 class="text-primary">Information</h4>
         <form [formGroup]="nestedForm">
@@ -6,7 +7,7 @@
                 <div class=" col-6 form-group">
                     <label for="firstname">First Name</label><sup class="text-danger">*</sup> <br>
                     <input type="text" class="form-control" id="firstname" formControlName="firstName">  
-                    <span class="text-danger" *ngIf="nestVal['firstName'].touched && nestVal['firstName'].invalid">
+                        <span class="text-danger" *ngIf="nestVal['firstName'].touched && nestVal['firstName'].invalid">
                         <span *ngIf="nestVal['firstName'].hasError('required')">First name is required</span>
                         <span *ngIf="nestVal['firstName'].hasError('pattern')">Enter only character</span>
                       </span>
@@ -19,31 +20,31 @@
                         <span *ngIf="nestVal['lastName'].hasError('pattern')">Enter only character</span>
                       </span>   
                 </div>
-                <h4 class="text-primary pt-3">Qualification</h4>
+                <h4 class="text-primary pt-3">Address</h4>
             </div>
-            <div class="row mx-0 my-2" formArrayName="education" >
+            <div class="row mx-0 my-2 " formArrayName="education" >
                 <div class="row">
-                    <div class="col-5"><label for="degee">Degree</label></div>
-                    <!-- <div class="col-3"><label for="degee">Marks (%)</label></div>
-                    <div class="col-3"><label for="degee">Year of Passing</label></div> -->
+                    <div class="col-3"><label for="degee">street</label></div>
+                    <div class="col-3"><label for="degee">city</label></div>
+                    <div class="col-3"><label for="degee">state</label></div>
                 </div>
-                <ng-container class="row" *ngFor="let edu of nestedForm.get('education').controls; index as i">
-                    <div class="col-12 mt-2">
-                        <input type="text" class="form-control" formControlName="{{i}}">
-                    </div>
-                    <!-- <div class="col-3">
-                        <input type="text" class="form-control" formControlName="mark">
+                <div class="row mt-2 educs" *ngFor="let edu of nestedForm.controls.education['controls']; index as i" [formGroupName]="i">
+                    <div class="col-3">
+                        <input type="text" class="form-control" formControlName="street" id="task{{i}}">
                     </div>
                     <div class="col-3">
-                        <input type="text" class="form-control" formControlName="year">
-                    </div> -->
-                    
-                </ng-container>
-                <div class="col-1"> 
-                    <button class="btn btn-outline-primary" (click)="addEducationField()">+</button>
+                        <input type="text" class="form-control" formControlName="city" id="task{{i}}">
+                    </div>
+                    <div class="col-3">
+                        <input type="text" class="form-control" formControlName="state" id="task{{i}}">
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-outline-danger" (click)="deleteRow(i)"> del</button>
+                    </div>
                 </div>
             </div> 
-            <div class="pt-3 float-end">
+            <button type="submit" class="btn btn-primary" (click)="addNewRow()">Add row</button>
+            <div class="pt-3 float-end">    
                 <button type="submit" (click)="postNestedData(nestedForm)" class="btn btn-primary">Submit</button>
             </div>
         </form>

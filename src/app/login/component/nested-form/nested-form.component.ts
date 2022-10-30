@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormArray, FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-nested-form',
@@ -8,7 +8,7 @@ import { FormArray, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 export class NestedFormComponent implements OnInit {
   nestedForm:any;
-  eduForm:any
+  eduForm:any;
   constructor(private formBuilder:FormBuilder) { }
 
   ngOnInit(): void {
@@ -16,13 +16,17 @@ export class NestedFormComponent implements OnInit {
       firstName:['', Validators.compose([Validators.required,Validators.pattern('^[a-zA-Z]+$')])],
       lastName: ['', Validators.compose([Validators.required,Validators.pattern('^[a-zA-Z]+$')])],
       education: this.formBuilder.array([
-        new FormControl(''),
+        this.formBuilder.group({
+          itemId:[1],
+          street:[''],
+          city:[''],
+          state:[''],
+        })
         
       ])
     })
-   
+ 
   }
-
   get nestVal(){
     return this.nestedForm.controls
   }
@@ -31,7 +35,20 @@ export class NestedFormComponent implements OnInit {
     console.log("Nested form = ", data.value)
     this.nestedForm.reset();
   }
-  addEducationField(){
-    this.nestedForm.get('education').push(new FormControl(''))
+  get items(){
+    return this.nestedForm.get('education') as FormArray; //it will return entire items as form array
+  }
+  addNewRow(){
+    const itemlen = this.items.length
+    const newItem = this.formBuilder.group({
+      itemId:[itemlen+1],
+      street:[''],
+      city:[''],
+      state:['']
+    })
+    this.items.push(newItem)
+  }
+  deleteRow(delId:any){
+    this.items.removeAt(delId)
   }
 }
