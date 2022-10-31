@@ -8,6 +8,7 @@ import { ForgetPasswordComponent } from './component/forget-password/forget-pass
 import { SignInComponent } from './component/sign-in/sign-in.component';
 import { SignUpComponent } from './component/sign-up/sign-up.component';
 import { NestedFormComponent } from './component/nested-form/nested-form.component';
+import { DynamicFormComponent } from './component/dynamic-form/dynamic-form.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { NestedFormComponent } from './component/nested-form/nested-form.compone
     ForgetPasswordComponent,
     SignInComponent,
     SignUpComponent,
-    NestedFormComponent
+    NestedFormComponent,
+    DynamicFormComponent
   ],
   imports: [
     CommonModule,
