@@ -1,4 +1,4 @@
-import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,13 +10,12 @@ export class DynamicFormComponent implements OnInit {
  public dynamicForm: FormGroup;
   constructor(private fb:FormBuilder) { 
     this.dynamicForm = fb.group({
-      firstname:[''],
-      emailid:[''],
+      firstname:['', Validators.compose([Validators.required,Validators.pattern('^[a-zA-Z]+$')])],
+      emailid:['', Validators.compose([Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])],
       address:this.fb.array([this.addressGroup()])
     })
   }
-
-  private addressGroup():FormGroup {
+  addressGroup():FormGroup {
     return this.fb.group({
       country:[''],
       state:[''],
@@ -24,17 +23,19 @@ export class DynamicFormComponent implements OnInit {
       contacts:this.fb.array([this.contactsGroup()])
     })
   }
-  private contactsGroup(): FormGroup {
+  contactsGroup(): FormGroup {
     return this.fb.group({
       personName: [''],
       personContact: [''], 
     });
   }
-
+  get dynamicValue(){
+    return this.dynamicForm.controls
+  }
   get addressArray(): FormArray{
     return <FormArray>this.dynamicForm.get('address');
   }
-  
+
   
   addAddress(): void {
     this.addressArray.push(this.addressGroup());
