@@ -15,40 +15,70 @@ export class DynamicFormComponent implements OnInit {
       address:this.fb.array([this.addressGroup()])
     })
   }
+  
   addressGroup():FormGroup {
     return this.fb.group({
-      country:[''],
-      state:[''],
-      city:[''],
+      country:['', Validators.pattern('^[a-zA-Z]+$')],
+      state:['',Validators.pattern('^[a-zA-Z]+$')],
+      city:['',Validators.pattern('^[a-zA-Z]+$')],
       contacts:this.fb.array([this.contactsGroup()])
     })
   }
+
   contactsGroup(): FormGroup {
     return this.fb.group({
-      personName: [''],
-      personContact: [''], 
+      personName: ['',Validators.pattern('^[a-zA-Z]+$')],
+      personContact: ['',Validators.pattern('^((\\+91-?)|0)?[7-9]{1}[0-9]{9}$')] 
     });
   }
   get dynamicValue(){
     return this.dynamicForm.controls
   }
-  get addressArray(): FormArray{
-    return <FormArray>this.dynamicForm.get('address');
+  get addressValidation(){
+    // return (this.dynamicForm.get('address.') as FormArray).controls
+    return this.addressGroup().controls
+  }
+ 
+  addressArray(): FormArray{
+    return this.dynamicForm.get('address') as FormArray;
+  }
+
+  // error handel of address field
+  getAddressErrors(index:number): FormArray{
+    return this.addressArray().at(index) as FormArray;
+  }
+  getContactsErrors(index:number): FormArray{
+    return this.getContactsControls(index).at(index) as FormArray;
+  }
+
+  getContactsControls(index:number):FormArray {
+    return this.addressArray().at(index).get('contacts') as FormArray;
   }
 
   
   addAddress(): void {
-    this.addressArray.push(this.addressGroup());
+    (<FormArray>this.dynamicForm.get("address")).push(this.addressGroup());
   }
   removeAddress(index:any){
-    this.addressArray.removeAt(index)
+    this.addressArray().removeAt(index)
   }
 
+  addContacts(index:any){
+       this.getContactsControls(index).push(this.contactsGroup());
+  }
+
+  removeContacts(index:any){
+    this.getContactsControls(index).removeAt(index)
+  }
 
   ngOnInit(): void {
+    console.log(this.addressValidation);  
+    console.log(this.dynamicValue);
+    
   }
   postDyanmicForm(){
     console.log("Nested form = ", this.dynamicForm.value)
+    this.dynamicForm.reset();
   }
 
 }
